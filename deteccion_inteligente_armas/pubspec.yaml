@@ -1,0 +1,23 @@
+name: deteccion_inteligente_armas
+description: Aplicación de detección de armas en tiempo real
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  camera: ^0.10.5+5
+  http: ^1.1.0
+  path_provider: ^2.1.1
+  flutter_email_sender: ^6.0.1
+  twilio_flutter: ^0.0.9
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
