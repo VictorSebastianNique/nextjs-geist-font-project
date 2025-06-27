@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'dart:io' show Platform;
 import '../services/detection_service.dart';
 import '../services/sms_service.dart';
 import '../services/email_service.dart';
@@ -45,8 +46,23 @@ class _DetectionScreenState extends State<DetectionScreen> {
   Future<void> _initializeCamera() async {
     _cameras = await availableCameras();
     if (_cameras != null && _cameras!.isNotEmpty) {
+      // Select camera based on platform
+      CameraDescription selectedCamera;
+      if (Platform.isIOS) {
+        // Use back camera for iOS
+        selectedCamera = _cameras!.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.back,
+          orElse: () => _cameras!.first,
+        );
+      } else {
+        // Use back camera for Android or others
+        selectedCamera = _cameras!.firstWhere(
+          (camera) => camera.lensDirection == CameraLensDirection.back,
+          orElse: () => _cameras!.first,
+        );
+      }
       _cameraController = CameraController(
-        _cameras![0],
+        selectedCamera,
         ResolutionPreset.medium,
         enableAudio: false,
       );
